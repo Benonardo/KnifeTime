@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.benonardo.knifetime.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "BipedEntityModelMixin",
+    "ExampleClientMixin",
+    "PlayerEntityRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}

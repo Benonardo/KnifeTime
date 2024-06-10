@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "knifetime:item/throwing_knife"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [0, 90, 0],
+      "translation": [0, 4, 0]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, -90, 0],
+      "translation": [0, 4, 0]
+    }
+  }
+}

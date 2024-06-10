@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "knifetime",
+	"version": "${version}",
+	"name": "KnifeTime",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/knifetime/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.benonardo.knifetime.KnifeTime"
+		],
+		"client": [
+			"com.benonardo.knifetime.KnifeTimeClient"
+		],
+		"mm:early_risers": [
+			"com.benonardo.knifetime.KnifeTimeEarlyRiser"
+		]
+	},
+	"mixins": [
+		"knifetime.mixins.json",
+		{
+			"config": "knifetime.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21-",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
