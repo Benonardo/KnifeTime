@@ -32,7 +32,7 @@ public class ThrowingKnifeItem extends Item implements ProjectileItem {
         if (world.isClient() || !(boringUser instanceof PlayerEntity user)) return;
 
         var entity = new ThrowingKnifeEntity(world, user, stack.copyWithCount(1));
-        entity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 5.0F, 0.0F);
+        entity.setVelocity(user, entity.age, user.getYaw(), 0.0F, 5.0F, 0.0F);
         world.spawnEntity(entity);
 
         user.getItemCooldownManager().set(this, 30);
@@ -41,8 +41,15 @@ public class ThrowingKnifeItem extends Item implements ProjectileItem {
     }
 
     @Override
+    public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+        if (remainingUseTicks < user.getItemUseTime()) {
+            user.stopUsingItem();
+        }
+    }
+
+    @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return 72000;
+        return 20 * 5;
     }
 
     @Override
