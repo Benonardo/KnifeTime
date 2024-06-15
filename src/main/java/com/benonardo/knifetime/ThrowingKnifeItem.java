@@ -28,28 +28,24 @@ public class ThrowingKnifeItem extends Item implements ProjectileItem {
     }
 
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity boringUser, int remainingUseTicks) {
-        if (world.isClient() || !(boringUser instanceof PlayerEntity user)) return;
+    public void usageTick(World world, LivingEntity boringUser, ItemStack stack, int remainingUseTicks) {
+        if (remainingUseTicks == 1) {
+            if (world.isClient() || !(boringUser instanceof PlayerEntity user)) return;
 
-        var entity = new ThrowingKnifeEntity(world, user, stack.copyWithCount(1));
-        entity.setVelocity(user, entity.age, user.getYaw(), 0.0F, 5.0F, 0.0F);
-        world.spawnEntity(entity);
+            System.out.println(remainingUseTicks);
+            var entity = new ThrowingKnifeEntity(world, user, stack.copyWithCount(1));
+            entity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.0F, 0.0F);
+            world.spawnEntity(entity);
 
-        user.getItemCooldownManager().set(this, 30);
-        user.incrementStat(Stats.USED.getOrCreateStat(this));
-        stack.decrementUnlessCreative(1, user);
-    }
-
-    @Override
-    public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-        if (remainingUseTicks < user.getItemUseTime()) {
-            user.stopUsingItem();
+            user.getItemCooldownManager().set(KnifeTime.THROWING_KNIFE_ITEM, 20);
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
+            stack.decrementUnlessCreative(1, user);
         }
     }
 
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return 20 * 5;
+        return 10;
     }
 
     @Override

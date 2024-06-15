@@ -2,6 +2,7 @@ package com.benonardo.knifetime.mixin.client;
 
 import com.benonardo.knifetime.KnifeTimeClient;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.debug.DebugRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
@@ -21,7 +22,7 @@ public class BipedEntityModelMixin<T extends LivingEntity> {
     @Inject(method = "positionRightArm", at = @At("TAIL"))
     private void checkForKnifeThrowing(T entity, CallbackInfo ci) {
         if (this.rightArmPose == KnifeTimeClient.THROWING_KNIFE_ARM_POSE) {
-            //this.rightArm.pitch = (entity.getItemUseTime() * Math.min(entity.getItemUseTime() / 10f, 2.0F));
+
         }
     }
 
@@ -29,9 +30,10 @@ public class BipedEntityModelMixin<T extends LivingEntity> {
             method = "setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/BipedEntityModel;positionRightArm(Lnet/minecraft/entity/LivingEntity;)V")
     )
-    private void setAngles(T entity, float f, float g, float animationProgress, float i, float j, CallbackInfo ci) {
+    private void setAngles(T entity, float f, float g, float animationProgress, float i, float j, CallbackInfo ci) throws InterruptedException {
         if (this.rightArmPose == KnifeTimeClient.THROWING_KNIFE_ARM_POSE) {
-            this.rightArm.pitch = animationProgress;
+            this.rightArm.pitch = KnifeTimeClient.getPitch(entity, animationProgress);
+
         }
     }
 
